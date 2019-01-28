@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Note de la question</th>
+                <th>Nbr de vote</th>
+                {% if is_granted('ROLE_USER') %}
+                <th {% if is_granted('ROLE_MODO') %} colspan="4" {% else %} colspan="3" {% endif %}><a class="btn btn-success btn-block" href="{{ path('app_qcmprime_create') }}">Créer</a></th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% set token = csrf_token('QCMPRIME_DELETE') %}
+            {% for qcmPrim in qcmPrims %}
+                <tr>
+                    <td>{{ qcmPrim.Id }}</td>
+                    <td>{{ qcmPrim.question }}</td>
+                    <td>{{ qcmPrim.rating }}</td>
+                    <td>{{ qcmPrim.ratingN }}</td>
+                    {% if is_granted('ROLE_USER') %}
+                     <td><a class="btn btn-info" href="{{ path('app_qcmprime_test',{id:qcmPrim.id}) }}">Tester</a></td>
+                     <td>
+                         {% if app.user == qcmPrim.user %}
+                             <a class="btn btn-warning" href="{{ path('app_qcmprime_modif',{id:qcmPrim.id}) }}">Modifier</a>
+                         {% else %}
+                             <span class="btn btn-secondary">Modifier</span>
+                         {% endif %}
+                     </td>
+                     <td>
+                         {% if app.user == qcmPrim.user %}
+                             <a class="btn btn-danger" href="{{ path('app_qcmprime_delete',{id:qcmPrim.id,token:token}) }}">Supprimer</a>
+                         {% elseif is_granted('ROLE_MODO') %}
+                             {# cree dans l'optique de changement dans l'evolution du concept #}
+                             <a class="btn btn-danger" href="{{ path('app_qcmprime_delete',{id:qcmPrim.id,token:token}) }}">Supprimer</a>
+                         {% else %}
+                             <span class="btn btn-secondary">Supprimer</span>
+                         {% endif %}
+                     </td>
+                    {% endif %}
+                    {% if is_granted('ROLE_MODO') %}
+                        <td>
+                            <a class="btn btn-success" href="{{ path('app_qcm_createfromqcmprime',{id:qcmPrim.id,token:token}) }}">Enregistre la question en QCM</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
