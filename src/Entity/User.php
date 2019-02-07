@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface
 {
 
-    use idTrait;
+    use IdTrait;
     /**
      * @var  string
      * @ORM\Column(unique=true)
