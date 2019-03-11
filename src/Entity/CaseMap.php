@@ -10,4 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
 class CaseMap
 {
     use IdTrait;
+
+    /**
+     * @todo liason avec caseMapEvent many to many
+     */
+
+    /**
+     * @todo liason avec caseMapType many to one
+     */
+
+
+    /**
+     * @todo liason monstre many to many
+     */
+
+
+
 }

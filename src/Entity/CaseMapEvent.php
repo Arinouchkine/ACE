@@ -16,7 +16,7 @@ class CaseMapEvent
      */
     private $titre;
     /**
-     * @todo liason avec entiter type
+     * @todo liason avec entiter caseMapEventType
      */
     /**
      * @ORM\Column(type="integer")

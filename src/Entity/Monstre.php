@@ -50,7 +50,15 @@ class Monstre
     /**
      * @ORM\Column(type="integer")
      */
-    private $forc;
+    private $force;
+
+    /**
+     * @todo liason loot many to many
+     */
+
+    /**
+     * @todo liason caseMap many to many
+     */
 
 
     public function getImageMonstreUrl(): ?string
@@ -137,14 +145,14 @@ class Monstre
         return $this;
     }
 
-    public function getForc(): ?int
+    public function getForce(): ?int
     {
-        return $this->forc;
+        return $this->force;
     }
 
-    public function setForc(int $forc): self
+    public function setForce(int $force): self
     {
-        $this->forc = $forc;
+        $this->force = $force;
 
         return $this;
     }
