@@ -64,10 +64,16 @@ class User implements UserInterface
      */
     private $qcmprimes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Loot", inversedBy="users")
+     */
+    private $loots;
+
     public function __construct()
     {
         $this->vote = new ArrayCollection();
         $this->qcmprimes = new  ArrayCollection();
+        $this->loots = new ArrayCollection();
     }
 
 
@@ -182,6 +188,42 @@ class User implements UserInterface
         $this->qcmprimes = $qcmprimes;
     }
 
+    /**
+     * @param Loot $loot
+     * @return User
+     */
+    public function addLoot(Loot $loot):User
+    {
+        if ($this->loots->contains($loot))
+        {
+            return $this;
+        }
+        $this->loots->add($loot);
+        $loot->addUser($this);
+        return $this;
+    }
 
+    /**
+     * @param Loot $loot
+     * @return User
+     */
+    public function removeLoot(Loot $loot):User
+    {
+        if(!$this->loots->contains($loot))
+        {
+            return $this;
+        }
+        $this->loots->removeElement($loot);
+        $loot->removeUser($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLoots()
+    {
+        return $this->loots;
+    }
 
 }

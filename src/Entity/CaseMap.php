@@ -12,57 +12,26 @@ use phpDocumentor\Reflection\Types\Self_;
 class CaseMap
 {
     use IdTrait;
-    /*
-    *
-     * Many Users have Many Groups.
-     * @ManyToMany(targetEntity="Group", inversedBy="users")
-     * @JoinTable(name="users_groups")
-     *
-    private $groups;
 
-    public function __construct() {
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    *
-     * Many Groups have Many Users.
-     * @ManyToMany(targetEntity="User", mappedBy="groups")
-     *
-    private $users;
-
-    public function __construct() {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    */
     /**
      * @ORM\ManyToMany(targetEntity="caseMapEvent", mappedBy="caseMaps")
      */
     private $caseMapEvents;
 
 
-    /**
-     * @todo liason avec caseMapType many to one
-     */
 
     /**
-     * @ORM\ManyToMany(targetEntity="CaseMapType", mappedBy="caseMaps")
+     * @ORM\ManyToOne(targetEntity="CaseMapType", inversedBy="caseMaps")
      */
     private $caseMapTypes;
 
-    /**
-     * @todo liason monstre many to many
-     */
-    /**
-     * @ORM\ManyToMany(targetEntity="Monstre", mappedBy="caseMaps")
-     */
-    private $monstres;
+
 
     public function __construct()
     {
         $this->caseMapEvents = new ArrayCollection();
         $this->caseMapTypes = new ArrayCollection();
-        $this->monstres = new ArrayCollection();
+
     }
 
     /**
@@ -110,6 +79,26 @@ class CaseMap
     }
 
     /**
+     * @return FileSave
+     */
+    public function getCaseMapImage(): FileSave
+    {
+        return $this->caseMapImage;
+    }
+
+    /**
+     * @param FileSave $caseMapImage
+     * @return CaseMap
+     */
+    public function setCaseMapImage(FileSave $caseMapImage): CaseMap
+    {
+        $this->caseMapImage = $caseMapImage;
+        return $this;
+    }
+
+
+
+    /**
      * @param CaseMapType $caseMapType
      * @return CaseMap
      */
@@ -154,50 +143,7 @@ class CaseMap
         return $this->caseMapTypes;
     }
 
-    /**
-     * @param Monstre $monstre
-     * @return CaseMap
-     */
-    public function addMonstre(Monstre $monstre):CaseMap
-    {
-        if ($this->monstres->contains($monstre))
-        {
-            return $this;
-        }
-        $this->monstres->add($monstre);
-        /**
-         * @todo addCaseMap in Monstre
-         */
-        $monstre->addCaseMap($this);
-        return $this;
 
-    }
-
-    /**
-     * @param Monstre $monstre
-     * @return CaseMap
-     */
-    public function removeMonstre(Monstre $monstre):CaseMap
-    {
-        if (!$this->monstres->contains($monstre))
-        {
-            return $this;
-        }
-        $this->monstres->removeElement($monstre);
-        /**
-         * @todo removeCaseMap in Monstre
-         */
-        $monstre->removeCaseMap($this);
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMonstres()
-    {
-        return $this->monstres;
-    }
 
 
 

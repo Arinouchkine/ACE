@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,31 +17,25 @@ class CaseMapEvent
      */
     private $titre;
     /**
-     * @todo liason avec entiter caseMapEventType
+     * @todo liason avec entiter caseMapEventType many to one
      */
     /**
-     * @ORM\Column(type="integer")
+     * @var caseMapEventType
+     * @ORM\ManyToOne(targetEntity="caseMapEventType")
      */
-    private $type;
+    private $caseMapEventType;
 
 
     /**
-     * @todo liason avec entiter monstre
+     * @ORM\ManyToMany(targetEntity="Monstre", mappedBy="caseMapEvents")
      */
+    private $monstres;
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="Loot", mappedBy="caseMapEvents")
      */
-    private $monstre;
-    /**
-     * @todo liason avec entiter loot
-     */
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $loot;
-    /**
-     * @todo liason avec entiter conditionEvent
-     */
+    private $loots;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -52,15 +47,22 @@ class CaseMapEvent
     private $texte;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var FileSave
+     * @ORM\OneToOne(targetEntity="FileSave")
      */
-    private $imgSupTitre;
+    private $imageSup;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="CaseMap", inversedBy="caseMapEvents")
      */
-    private $imgSupUrl;
+    private $caseMaps;
 
+    public function __construct()
+    {
+        $this->monstres = new ArrayCollection();
+        $this->caseMaps = new ArrayCollection();
+        $this->loots = new  ArrayCollection();
+    }
 
 
     public function getTitre(): ?string
@@ -75,41 +77,96 @@ class CaseMapEvent
         return $this;
     }
 
-    public function getType(): ?int
+    /**
+     * @return caseMapEventType
+     */
+    public function getCaseMapEventType(): caseMapEventType
     {
-        return $this->type;
+        return $this->caseMapEventType;
     }
 
-    public function setType(int $type): self
+    /**
+     * @param caseMapEventType $caseMapEventType
+     * @return self
+     */
+    public function setCaseMapEventType(caseMapEventType $caseMapEventType): self
     {
-        $this->type = $type;
-
+        $this->caseMapEventType = $caseMapEventType;
         return $this;
     }
 
-    public function getMonstre(): ?string
+
+
+    /**
+     * @param Monstre $monstre
+     * @return CaseMapEvent
+     */
+    public function addMonstre(Monstre $monstre):CaseMapEvent
     {
-        return $this->monstre;
+        if ($this->monstres->contains($monstre))
+        {
+            return $this;
+        }
+        $this->monstres->add($monstre);
+        $monstre->addCaseMapEvent($this);
+        return $this;
+
     }
 
-    public function setMonstre(string $monstre): self
+    /**
+     * @param Monstre $monstre
+     * @return CaseMapEvent
+     */
+    public function removeMonstre(Monstre $monstre):CaseMapEvent
     {
-        $this->monstre = $monstre;
+        if (!$this->monstres->contains($monstre))
+        {
+            return $this;
+        }
+        $this->monstres->removeElement($monstre);
+        $monstre->removeCaseMapEvent($this);
+        return $this;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getMonstres()
+    {
+        return $this->monstres;
+    }
+
+    /**
+     * @param Loot $loot
+     * @return CaseMapEvent
+     */
+    public function addLoot(Loot $loot): CaseMapEvent
+    {
+        if($this->loots->contains($loot))
+        {
+            return $this;
+        }
+        $this->loots->add($loot);
+        $loot->addCaseMapEvent($this);
+        return $this;
+    }
+
+    public function removeLoot(Loot $loot): CaseMapEvent
+    {
+        if (!$this->loots->contains($loot))
+        {
+            return $this;
+        }
+        $this->loots->removeElement($loot);
+        $loot->removeCaseMapEvent($this);
         return $this;
     }
 
     public function getLoot(): ?string
     {
-        return $this->loot;
+        return $this->loots;
     }
 
-    public function setLoot(?string $loot): self
-    {
-        $this->loot = $loot;
-
-        return $this;
-    }
 
     public function getConditionEvent(): ?string
     {
@@ -135,27 +192,62 @@ class CaseMapEvent
         return $this;
     }
 
-    public function getImgSupTitre(): ?string
+    /**
+     * @return FileSave
+     */
+    public function getImageSup(): FileSave
     {
-        return $this->imgSupTitre;
+        return $this->imageSup;
     }
 
-    public function setImgSupTitre(string $imgSupTitre): self
+    /**
+     * @param FileSave $imageSup
+     * @return CaseMapEvent
+     */
+    public function setImageSup(FileSave $imageSup): CaseMapEvent
     {
-        $this->imgSupTitre = $imgSupTitre;
-
+        $this->imageSup = $imageSup;
         return $this;
     }
 
-    public function getImgSupUrl(): ?string
-    {
-        return $this->imgSupUrl;
-    }
 
-    public function setImgSupUrl(string $imgSupUrl): self
+    /**
+     * @param CaseMap $caseMap
+     * @return CaseMapEvent
+     */
+    public function addCaseMap(CaseMap $caseMap):CaseMapEvent
     {
-        $this->imgSupUrl = $imgSupUrl;
-
+        if ($this->caseMaps->contains($caseMap))
+        {
+            return $this;
+        }
+        $this->caseMaps->add($caseMap);
+        $caseMap->addCaseMapEvent($this);
         return $this;
     }
+
+    /**
+     * @param CaseMap $caseMap
+     * @return CaseMapEvent
+     */
+    public function removeCaseMap(CaseMap $caseMap):CaseMapEvent
+    {
+        if (!$this->caseMaps->contains($caseMap))
+        {
+            return $this;
+        }
+        $this->caseMaps->removeElement($caseMap);
+        $caseMap->removeCaseMapEvent($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCaseMaps()
+    {
+        return $this->caseMaps;
+    }
+
+    
 }

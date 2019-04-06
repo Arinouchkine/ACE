@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,18 +23,34 @@ class Loot
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="FileSave")
      */
-    private $imageLootName;
+    private $imageLoot;
+
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="User",mappedBy="loots")
      */
-    private $imageLootUrl;
+    private $users;
 
     /**
-     * @todo liason users many to many
+     * @ORM\ManyToMany(targetEntity="CaseMapEvent", inversedBy="loots")
      */
+    private $caseMapEvents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Monstre", inversedBy="loots")
+     */
+    private $monstres;
+
+
+    public function __construct()
+    {
+        $this->caseMapEvents = new  ArrayCollection();
+        $this->monstres = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
+
 
     public function getTitre(): ?string
     {
@@ -59,27 +76,140 @@ class Loot
         return $this;
     }
 
-    public function getImageLootName(): ?string
+    /**
+     * @return FileSave
+     */
+    public function getImageLoot(): FileSave
     {
-        return $this->imageLootName;
+        return $this->imageLoot;
     }
 
-    public function setImageLootName(?string $imageLootName): self
+    /**
+     * @param FileSave $imageLoot
+     * @return Loot
+     */
+    public function setImageLoot(FileSave $imageLoot): Loot
     {
-        $this->imageLootName = $imageLootName;
-
+        $this->imageLoot = $imageLoot;
         return $this;
     }
 
-    public function getImageLootUrl(): ?string
+
+
+    /**
+     * @param User $user
+     * @return Loot
+     */
+    public function addUser(User $user):Loot
     {
-        return $this->imageLootUrl;
+        if ($this->users->contains($user))
+        {
+            return $this;
+        }
+        $this->users->add($user);
+        $user->addLoot($this);
+        return $this;
+
     }
 
-    public function setImageLootUrl(?string $imageLootUrl): self
+    /**
+     * @param User $user
+     * @return Loot
+     */
+    public function removeUser(User $user):Loot
     {
-        $this->imageLootUrl = $imageLootUrl;
-
+        if (! $this->users->contains($user))
+        {
+            return $this;
+        }
+        $this->users->removeElement($user);
+        $user->removeLoot($this);
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param CaseMapEvent $caseMapEvent
+     * @return Loot
+     */
+    public function addCaseMapEvent(CaseMapEvent $caseMapEvent): Loot
+    {
+        if ($this->caseMapEvents->contains($caseMapEvent))
+        {
+            return $this;
+        }
+        $this->caseMapEvents->add($caseMapEvent);
+        $caseMapEvent->addLoot($this);
+        return $this;
+    }
+
+    /**
+     * @param CaseMapEvent $caseMapEvent
+     * @return Loot
+     */
+    public function removeCaseMapEvent(CaseMapEvent $caseMapEvent): Loot
+    {
+        if (!$this->caseMapEvents->contains($caseMapEvent))
+        {
+            return $this;
+        }
+        $this->caseMapEvents->removeElement($caseMapEvent);
+        $caseMapEvent->removeLoot($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCaseMapEvents()
+    {
+        return $this->caseMapEvents;
+    }
+
+    /**
+     * @param Monstre $monstre
+     * @return Loot
+     */
+    public function addMonstre(Monstre $monstre):Loot
+    {
+        if ($this->monstres->contains($monstre))
+        {
+            return $this;
+        }
+        $this->monstres->add($monstre);
+        $monstre->addLoot($this);
+        return $this;
+    }
+
+    /**
+     * @param Monstre $monstre
+     * @return Loot
+     */
+    public function removeMonstre(Monstre $monstre):Loot
+    {
+        if (!$this->monstres->contains($monstre))
+        {
+            return $this;
+        }
+        $this->monstres->removeElement($monstre);
+        $monstre->removeLoot($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMonstres()
+    {
+        return $this->monstres;
+    }
+
+
 }

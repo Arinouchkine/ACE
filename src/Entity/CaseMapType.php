@@ -22,14 +22,10 @@ class CaseMapType
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var FileSave
+     * @ORM\OneToOne(targetEntity="FileSave")
      */
-    private $imageName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imageUrl;
+    private $caseMapImage;
 
 
     public function getTitre(): ?string
@@ -56,27 +52,21 @@ class CaseMapType
         return $this;
     }
 
-    public function getImageName(): ?string
+    /**
+     * @return FileSave
+     */
+    public function getCaseMapImage(): FileSave
     {
-        return $this->imageName;
+        return $this->caseMapImage;
     }
 
-    public function setImageName(string $imageName): self
+    /**
+     * @param FileSave $caseMapImage
+     * @return CaseMapType
+     */
+    public function setCaseMapImage(FileSave $caseMapImage): CaseMapType
     {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(string $imageUrl): self
-    {
-        $this->imageUrl = $imageUrl;
-
+        $this->caseMapImage = $caseMapImage;
         return $this;
     }
 }
