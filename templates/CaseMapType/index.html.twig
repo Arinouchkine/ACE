@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Theme</th>
+                <th>Difficulte</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for qcm in qcms %}
+                <tr>
+                    <td>{{ qcm.id }}</td>
+                    <td>{{ qcm.question }}</td>
+                    <td>{{ qcm.theme }}</td>
+                    <td>{{ qcm.difficulty }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

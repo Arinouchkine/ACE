@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Events</th>
+                <th>Type</th>
+                <th colspan="3" ><a class="btn btn-success btn-block" href="{{ path('app_qcmprime_create') }}">Créer</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set token = csrf_token('CASEMAP_DELETE') %}
+            {% for caseMap in caseMaps %}
+                <tr>
+                    <td>{{ caseMap.id }}</td>
+                    <td>
+                        {% for event in caseMap.caseMapEvents %}
+
+                        {% endfor %}
+                    </td>
+                    <td>{{ caseMap.caseMapTypes}}</td>
+                    <td><a class="btn btn-warning" href="{{ path('app_qcmprime_modif',{id:qcmPrim.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('app_qcmprime_delete',{id:qcmPrim.id,token:token}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

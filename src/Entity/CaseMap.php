@@ -23,14 +23,13 @@ class CaseMap
     /**
      * @ORM\ManyToOne(targetEntity="CaseMapType", inversedBy="caseMaps")
      */
-    private $caseMapTypes;
+    private $caseMapType;
 
 
 
     public function __construct()
     {
         $this->caseMapEvents = new ArrayCollection();
-        $this->caseMapTypes = new ArrayCollection();
 
     }
 
@@ -79,36 +78,12 @@ class CaseMap
     }
 
     /**
-     * @return FileSave
-     */
-    public function getCaseMapImage(): FileSave
-    {
-        return $this->caseMapImage;
-    }
-
-    /**
-     * @param FileSave $caseMapImage
-     * @return CaseMap
-     */
-    public function setCaseMapImage(FileSave $caseMapImage): CaseMap
-    {
-        $this->caseMapImage = $caseMapImage;
-        return $this;
-    }
-
-
-
-    /**
      * @param CaseMapType $caseMapType
      * @return CaseMap
      */
-    public function addCaseMapType(CaseMapType $caseMapType):CaseMap
+    public function setCaseMapType(CaseMapType $caseMapType):CaseMap
     {
-        if ($this->caseMapTypes->contains($caseMapType))
-        {
-            return $this;
-        }
-        $this->caseMapTypes->add($caseMapType);
+        $this->caseMapType = $caseMapType;
         /**
          * @todo addCaseMap in CaseMapType
          */
@@ -116,31 +91,13 @@ class CaseMap
         return $this;
     }
 
-    /**
-     * @param CaseMapType $caseMapType
-     * @return CaseMap
-     */
-    public function removeCaseMapType(CaseMapType $caseMapType):CaseMap
-    {
-        if(!$this->caseMapTypes->contains($caseMapType))
-        {
-            return $this;
-        }
-        $this->caseMapTypes->removeElement($caseMapType);
-        /**
-         * @todo removeCaseMap in CaseMapType
-         */
-        $caseMapType->removeCaseMap($this);
-        return $this;
-
-    }
 
     /**
      * @return mixed
      */
     public function getCaseMapTypes()
     {
-        return $this->caseMapTypes;
+        return $this->caseMapType;
     }
 
 

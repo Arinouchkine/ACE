@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,7 +30,7 @@ class Monstre
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Description;
+    private $description;
 
     /**
      * @ORM\Column(type="integer")
@@ -51,9 +52,7 @@ class Monstre
      */
     private $force;
 
-    /**
-     * @todo liason loot many to many
-     */
+
     /**
      * @ORM\ManyToMany(targetEntity="Loot", mappedBy="monstres")
      */
@@ -74,7 +73,7 @@ class Monstre
      */
     public function getImageMonstre(): FileSave
     {
-        return $this->image_monstre;
+        return $this->imageMonstre;
     }
 
     /**
@@ -82,7 +81,7 @@ class Monstre
      */
     public function setImageMonstre(FileSave $image_monstre): void
     {
-        $this->image_monstre = $image_monstre;
+        $this->imageMonstre = $image_monstre;
     }
 
 
@@ -102,12 +101,12 @@ class Monstre
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
     public function setDescription(string $Description): self
     {
-        $this->Description = $Description;
+        $this->description = $Description;
 
         return $this;
     }

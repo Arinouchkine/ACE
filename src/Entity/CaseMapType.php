@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,17 @@ class CaseMapType
      * @ORM\OneToOne(targetEntity="FileSave")
      */
     private $caseMapImage;
+
+    /**
+     * @var CaseMap
+     * @ORM\OneToMany(targetEntity="CaseMap", mappedBy="caseMapTypes")
+     */
+    private $caseMaps;
+
+    public function __construct()
+    {
+        $this->caseMaps = new ArrayCollection();
+    }
 
 
     public function getTitre(): ?string
@@ -67,6 +79,36 @@ class CaseMapType
     public function setCaseMapImage(FileSave $caseMapImage): CaseMapType
     {
         $this->caseMapImage = $caseMapImage;
+        return $this;
+    }
+
+    /**
+     * @param CaseMap $caseMap
+     * @return CaseMapType
+     */
+    public function addCaseMap(CaseMap $caseMap):CaseMapType
+    {
+        if ($this->caseMaps->contains($caseMap))
+        {
+            return $this;
+        }
+        $this->caseMaps->add($caseMap);
+        $caseMap->setCaseMapType($this);
+        return $this;
+    }
+
+    /**
+     * @param CaseMap $caseMap
+     * @return CaseMapType
+     */
+    public function removeCaseMapEvent(CaseMap $caseMap):CaseMapType
+    {
+        if (!$this->caseMaps->contains($caseMap))
+        {
+            return $this;
+        }
+        $this->caseMaps->removeElement($caseMap);
+
         return $this;
     }
 }
