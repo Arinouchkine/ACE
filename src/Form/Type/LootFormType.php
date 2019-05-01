@@ -9,7 +9,8 @@
 namespace App\Form\Type;
 
 
-use Doctrine\DBAL\Types\TextType;
+use App\Entity\FileSave;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,13 +21,14 @@ class LootFormType extends AbstractType
     {
        $builder
            ->add('titre', TextType::class,array(
-               'labal' => 'Titre du loot',
+               'label' => 'Titre du loot',
            ))
            ->add('description',TextareaType::class,array(
                'label' => 'Description du loot',
            ))
            ->add('imageLoot', FileSaveFormType::class,array(
                'label' => 'Loot',
+               'data_class' => FileSave::class,
            ))
        ;
 

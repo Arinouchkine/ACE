@@ -9,6 +9,7 @@
 namespace App\Form\Type;
 
 use App\Entity\CaseMapEventType;
+use App\Entity\FileSave;
 use App\Entity\Loot;
 use App\Entity\Monstre;
 use Doctrine\DBAL\Types\TextType;
@@ -51,6 +52,7 @@ class CaseMapEventFormType extends AbstractType
         ))
         ->add('imageSup', FileSaveFormType::class,array(
             'label' => 'Sup',
+            'data_class' => FileSave::class,
         ))
         ;
 

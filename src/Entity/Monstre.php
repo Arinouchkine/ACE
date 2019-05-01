@@ -16,7 +16,7 @@ class Monstre
 
     /**
      * @var FileSave
-     * @ORM\OneToOne(targetEntity="FileSave")
+     * @ORM\OneToOne(targetEntity="FileSave",cascade={"persist"})
      */
     private $imageMonstre;
 

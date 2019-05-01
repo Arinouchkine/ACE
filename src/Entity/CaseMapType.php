@@ -24,7 +24,7 @@ class CaseMapType
 
     /**
      * @var FileSave
-     * @ORM\OneToOne(targetEntity="FileSave")
+     * @ORM\OneToOne(targetEntity="FileSave",cascade={"persist"})
      */
     private $caseMapImage;
 
@@ -67,7 +67,7 @@ class CaseMapType
     /**
      * @return FileSave
      */
-    public function getCaseMapImage(): FileSave
+    public function getCaseMapImage(): ?FileSave
     {
         return $this->caseMapImage;
     }

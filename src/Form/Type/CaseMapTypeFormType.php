@@ -9,9 +9,11 @@
 namespace App\Form\Type;
 
 
-use Doctrine\DBAL\Types\TextType;
+
+use App\Entity\FileSave;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CaseMapTypeFormType extends AbstractType
@@ -26,6 +28,7 @@ class CaseMapTypeFormType extends AbstractType
         ))
         ->add('caseMapImage', FileSaveFormType::class,array(
             'label' => 'Loot',
+            'data_class' => FileSave::class,
         ))
         ;
     }

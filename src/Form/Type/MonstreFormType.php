@@ -9,6 +9,7 @@
 namespace App\Form\Type;
 
 
+use App\Entity\FileSave;
 use App\Entity\Loot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,6 +25,7 @@ class MonstreFormType extends AbstractType
        $builder
            ->add('imageMonstre', FileSaveFormType::class, array(
                'label' => 'Image du monstre',
+               'data_class' => FileSave::class,
            ))
            ->add('nom',TextType::class, array(
                'label' => 'Nom du monstre',

@@ -23,7 +23,7 @@ class Loot
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="FileSave")
+     * @ORM\OneToOne(targetEntity="FileSave",cascade={"persist"})
      */
     private $imageLoot;
 
@@ -79,7 +79,7 @@ class Loot
     /**
      * @return FileSave
      */
-    public function getImageLoot(): FileSave
+    public function getImageLoot(): ?FileSave
     {
         return $this->imageLoot;
     }

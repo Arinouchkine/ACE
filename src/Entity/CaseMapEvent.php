@@ -16,12 +16,10 @@ class CaseMapEvent
      * @ORM\Column(type="string", length=255)
      */
     private $titre;
-    /**
-     * @todo liason avec entiter caseMapEventType many to one
-     */
+
     /**
      * @var caseMapEventType
-     * @ORM\ManyToOne(targetEntity="caseMapEventType")
+     * @ORM\ManyToOne(targetEntity="CaseMapEventType")
      */
     private $caseMapEventType;
 
@@ -48,7 +46,7 @@ class CaseMapEvent
 
     /**
      * @var FileSave
-     * @ORM\OneToOne(targetEntity="FileSave")
+     * @ORM\OneToOne(targetEntity="FileSave",cascade={"persist"})
      */
     private $imageSup;
 
