@@ -78,7 +78,7 @@ class CaseMapEvent
     /**
      * @return caseMapEventType
      */
-    public function getCaseMapEventType(): caseMapEventType
+    public function getCaseMapEventType(): ?caseMapEventType
     {
         return $this->caseMapEventType;
     }
@@ -160,7 +160,7 @@ class CaseMapEvent
         return $this;
     }
 
-    public function getLoot(): ?string
+    public function getLoots()
     {
         return $this->loots;
     }
@@ -193,7 +193,7 @@ class CaseMapEvent
     /**
      * @return FileSave
      */
-    public function getImageSup(): FileSave
+    public function getImageSup(): ?FileSave
     {
         return $this->imageSup;
     }

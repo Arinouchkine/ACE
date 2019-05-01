@@ -30,7 +30,7 @@ class CaseMapType
 
     /**
      * @var CaseMap
-     * @ORM\OneToMany(targetEntity="CaseMap", mappedBy="caseMapTypes")
+     * @ORM\OneToMany(targetEntity="CaseMap", mappedBy="caseMapType")
      */
     private $caseMaps;
 
@@ -101,7 +101,7 @@ class CaseMapType
      * @param CaseMap $caseMap
      * @return CaseMapType
      */
-    public function removeCaseMapEvent(CaseMap $caseMap):CaseMapType
+    public function removeCaseMap(CaseMap $caseMap):CaseMapType
     {
         if (!$this->caseMaps->contains($caseMap))
         {
