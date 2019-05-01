@@ -47,7 +47,7 @@ class CaseMapTypeController extends AbstractController
     }
 
     /**
-     * @Route("/case-map/type/edit/{id]", name="editCaseMapType")
+     * @Route("/case-map/type/edit/{id}", name="editCaseMapType")
      */
 
     public function editCaseMapTypeAction(Request $request , CaseMapType $caseMapType)
