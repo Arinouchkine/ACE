@@ -8,6 +8,9 @@
 
 namespace App\Form\Type;
 
+use App\Entity\CaseMapEventType;
+use App\Entity\Loot;
+use App\Entity\Monstre;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,22 +28,23 @@ class CaseMapEventFormType extends AbstractType
             'label' => 'Description du l\'evenementt',
         ))
         ->add('caseMapEventType', EntityType::class, array(
+            "class"        => CaseMapEventType::class,
             'choice_label' => 'titre',
             'label'        => 'Selectionner le type pour l\evenement de case',
         ))
         ->add('monstres', EntityType::class, array(
+            "class"        => Monstre::class,
             'choice_label' => 'nom',
             'label'        => 'Selectionner les monstres',
             'expanded'     => true,
             'multiple'     => true,
-            'html5'        => true,
         ))
         ->add('loots', EntityType::class, array(
+            "class"        => Loot::class,
             'choice_label' => 'nom',
             'label'        => 'Selectionner les loots de l\'evenement',
             'expanded'     => true,
             'multiple'     => true,
-            'html5'        => true,
         ))
         ->add('conditionEvent', TextType::class, array(
             'label' => 'La condiotion de l\'evenement',

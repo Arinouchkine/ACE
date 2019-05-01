@@ -7,6 +7,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_index') }}">Administration</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listCaseMap') }}">CaseMap</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listCaseMapEvent') }}">CaseMapEvent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listCaseMapEventType') }}">CaseMapEventType</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listCaseMapType') }}">CaseMapType</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listLoot') }}">Loot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('listMonstre') }}">Monstre</a>
+            </li>
 
         {% endif %}
         {% if is_granted('ROLE_MODO') %}

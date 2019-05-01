@@ -14,7 +14,7 @@ class CaseMap
     use IdTrait;
 
     /**
-     * @ORM\ManyToMany(targetEntity="caseMapEvent", mappedBy="caseMaps")
+     * @ORM\ManyToMany(targetEntity="App\Entity\CaseMapEvent", mappedBy="caseMaps")
      */
     private $caseMapEvents;
 

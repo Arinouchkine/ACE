@@ -9,6 +9,8 @@
 namespace App\Form\Type;
 
 
+use App\Entity\CaseMapEvent;
+use App\Entity\CaseMapType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,13 +20,14 @@ class CaseMapFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('caseMapEvents', EntityType::class, array(
+            "class"        => CaseMapEvent::class,
             'choice_label' => 'titre',
             'label'        => 'Selectionner les evenements pour la case',
             'expanded'     => true,
             'multiple'     => true,
-            'html5'        => true,
         ))
         ->add('caseMapType', EntityType::class, array(
+            "class"        => CaseMapType::class,
             'choice_label' => 'titre',
             'label'        => 'Selectionner le type pour la case',
         ));

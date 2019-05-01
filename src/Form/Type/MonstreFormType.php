@@ -9,6 +9,7 @@
 namespace App\Form\Type;
 
 
+use App\Entity\Loot;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -43,11 +44,11 @@ class MonstreFormType extends AbstractType
                'label' => 'La force du monstre',
            ))
            ->add('loots', EntityType::class, array(
+               "class"        => Loot::class,
                'choice_label' => 'titre',
                'label'        => 'Selectionner les loots de monstre',
                'expanded'     => true,
                'multiple'     => true,
-               'html5'        => true,
            ))
 
        ;
