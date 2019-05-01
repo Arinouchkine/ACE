@@ -42,7 +42,7 @@ class MonstreFormType extends AbstractType
            ->add('nbrHardQuestion',NumberType::class,array(
                'label' => 'Nombre de question difficile',
            ))
-           ->add('force',NumberType::class,array(
+           ->add('forceM',NumberType::class,array(
                'label' => 'La force du monstre',
            ))
            ->add('loots', EntityType::class, array(

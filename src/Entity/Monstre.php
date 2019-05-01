@@ -50,7 +50,7 @@ class Monstre
     /**
      * @ORM\Column(type="integer")
      */
-    private $force;
+    private $forceM;
 
 
     /**
@@ -71,7 +71,7 @@ class Monstre
     /**
      * @return FileSave
      */
-    public function getImageMonstre(): FileSave
+    public function getImageMonstre(): ?FileSave
     {
         return $this->imageMonstre;
     }
@@ -147,14 +147,14 @@ class Monstre
         return $this;
     }
 
-    public function getForce(): ?int
+    public function getForceM(): ?int
     {
-        return $this->force;
+        return $this->forceM;
     }
 
-    public function setForce(int $force): self
+    public function setForceM(int $forceM): self
     {
-        $this->force = $force;
+        $this->forceM = $forceM;
 
         return $this;
     }
