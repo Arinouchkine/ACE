@@ -51,12 +51,12 @@ class MonstreController extends AbstractController
     }
 
     /**
-     * @Route("/monstre/edit/{id]", name="editMonstre")
+     * @Route("/monstre/edit/{id}", name="editMonstre")
      */
 
     public function editMonstreAction(Request $request , Monstre $monstre)
     {
-        $form = $this->createForm(LootFormType::class, $monstre);
+        $form = $this->createForm(MonstreFormType::class, $monstre);
         $form->handleRequest($request);
         if ($form->isSubmitted()&&$form->isValid()) {
             $em = $this->getDoctrine()->getManager();
