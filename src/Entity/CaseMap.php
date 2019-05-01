@@ -95,7 +95,7 @@ class CaseMap
     /**
      * @return mixed
      */
-    public function getCaseMapTypes()
+    public function getCaseMapType()
     {
         return $this->caseMapType;
     }

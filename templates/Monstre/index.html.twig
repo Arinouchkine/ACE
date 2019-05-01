@@ -5,18 +5,34 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Question</th>
-                <th>Theme</th>
-                <th>Difficulte</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Nbr Question Facile</th>
+                <th>Nbr Question Moyen</th>
+                <th>Nbr Question Difficile</th>
+                <th>Force</th>
+                <th>Loots</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createMonstre') }}">Créer</a></th>
             </tr>
             </thead>
             <tbody>
-            {% for qcm in qcms %}
+            {% set token = csrf_token('MONSTRE_DELETE') %}
+            {% for monstre in monstres %}
                 <tr>
-                    <td>{{ qcm.id }}</td>
-                    <td>{{ qcm.question }}</td>
-                    <td>{{ qcm.theme }}</td>
-                    <td>{{ qcm.difficulty }}</td>
+                    <td>{{ monstre.id }}</td>
+                    <td>{{ monstre.nom}}</td>
+                    <td>{{ monstre.description }}</td>
+                    <td>{{ monstre.nbrEasyQuestion }}</td>
+                    <td>{{ monstre.nbrMediumQuestion }}</td>
+                    <td>{{ monstre.nbrHardQuestion }}</td>
+                    <td>{{ monstre.force }}</td>
+                    <td>
+                        {% for loot in monstre.loots %}
+                            <span class="badge">{{ loot.titre }}</span>
+                        {% endfor %}
+                    </td>
+                    <td><a class="btn btn-warning" href="{{ path('editMonstre',{id:monstre.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteMonstre',{id:monstre.id,token:token}) }}">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

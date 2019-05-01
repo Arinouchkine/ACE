@@ -15,16 +15,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MonstreController extends AbstractController
 {
-    /**
+
+    /*
      * @Route("/monstre", name="monstre")
      */
+    /*
     public function index()
     {
         return $this->render('monstre/index.html.twig', [
             'controller_name' => 'MonstreController',
         ]);
     }
-
+    */
 
     /**
      * @Route("/monstre/add", name="createMonstre")
@@ -49,7 +51,7 @@ class MonstreController extends AbstractController
     }
 
     /**
-     * @Route("/monstre/edit/{token]", name="editMonstre")
+     * @Route("/monstre/edit/{id]", name="editMonstre")
      */
 
     public function editMonstreAction(Request $request , Monstre $monstre)

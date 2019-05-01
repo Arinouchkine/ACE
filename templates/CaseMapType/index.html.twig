@@ -5,18 +5,20 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Question</th>
-                <th>Theme</th>
-                <th>Difficulte</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createCaseMapType') }}">Créer</a></th>
             </tr>
             </thead>
             <tbody>
-            {% for qcm in qcms %}
+            {% set token = csrf_token('CASEMAPTYPE_DELETE') %}
+            {% for caseMapType in caseMapTypes %}
                 <tr>
-                    <td>{{ qcm.id }}</td>
-                    <td>{{ qcm.question }}</td>
-                    <td>{{ qcm.theme }}</td>
-                    <td>{{ qcm.difficulty }}</td>
+                    <td>{{ caseMapType.id }}</td>
+                    <td>{{ caseMapType.titre}}</td>
+                    <td>{{ caseMapType.description }}</td>
+                    <td><a class="btn btn-warning" href="{{ path('editCaseMapType',{id:caseMapType.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteCaseMapType',{id:caseMapType.id,token:token}) }}">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

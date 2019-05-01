@@ -47,7 +47,7 @@ class CaseMapEventController extends AbstractController
     }
 
     /**
-     * @Route("/case-map/event/edit/{token]", name="editCaseMapEvent")
+     * @Route("/case-map/event/edit/{id]", name="editCaseMapEvent")
      */
 
     public function editCaseMapEventAction(Request $request , CaseMapEvent $caseMapEvent)

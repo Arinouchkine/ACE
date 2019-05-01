@@ -46,7 +46,7 @@ class LootController extends AbstractController
     }
 
     /**
-     * @Route("/loot/edit/{token]", name="editLoot")
+     * @Route("/loot/edit/{id]", name="editLoot")
      */
 
     public function editLootAction(Request $request , Loot $loot)

@@ -5,18 +5,36 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Question</th>
-                <th>Theme</th>
-                <th>Difficulte</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Monstres</th>
+                <th>Loots</th>
+                <th>Conditions</th>
+                <th>Texte</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createCaseMapEvent') }}">Créer</a></th>
             </tr>
             </thead>
             <tbody>
-            {% for qcm in qcms %}
+            {% set token = csrf_token('CASEMAPEVENT_DELETE') %}
+            {% for caseMapEvent in caseMapEvents %}
                 <tr>
-                    <td>{{ qcm.id }}</td>
-                    <td>{{ qcm.question }}</td>
-                    <td>{{ qcm.theme }}</td>
-                    <td>{{ qcm.difficulty }}</td>
+                    <td>{{ caseMapEvent.id }}</td>
+                    <td>{{ caseMapEvent.titre }}</td>
+                    <td>{{ caseMapEvent.caseMapEventType.titre}}</td>
+                    <td>
+                        {% for monstre in caseMapEvent.monstres %}
+                            <span class="badge">{{ monstre.nom }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for loot in caseMapEvent.loots %}
+                            <span class="badge">{{ loot.titre }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>{{ caseMapEvent.conditionEvent }}</td>
+                    <td>{{ caseMapEvent.texte }}</td>
+                    <td><a class="btn btn-warning" href="{{ path('editCaseMapEvent',{id:caseMapEvent.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteCaseMapEvent',{id:caseMapEvent.id,token:token}) }}">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>

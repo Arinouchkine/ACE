@@ -5,18 +5,20 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Question</th>
-                <th>Theme</th>
-                <th>Difficulte</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createLoot') }}">Créer</a></th>
             </tr>
             </thead>
             <tbody>
-            {% for qcm in qcms %}
+            {% set token = csrf_token('LOOT_DELETE') %}
+            {% for loot in loots %}
                 <tr>
-                    <td>{{ qcm.id }}</td>
-                    <td>{{ qcm.question }}</td>
-                    <td>{{ qcm.theme }}</td>
-                    <td>{{ qcm.difficulty }}</td>
+                    <td>{{ loot.id }}</td>
+                    <td>{{ loot.titre}}</td>
+                    <td>{{ loot.description }}</td>
+                    <td><a class="btn btn-warning" href="{{ path('editLoot',{id:loot.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteLoot',{id:loot.id,token:token}) }}">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>
