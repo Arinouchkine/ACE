@@ -19,7 +19,7 @@ class Map
 
     /**
      * @var mapCaseMap
-     * @ORM\OneToMany(targetEntity="mapCaseMap", mappedBy="map")
+     * @ORM\OneToMany(targetEntity="MapCaseMap", mappedBy="map")
      */
     private $mapCaseMaps;
 

@@ -18,7 +18,7 @@ class MapCaseMap
     private $caseMap;
 
     /**
-     * @var map
+     * @var Map
      * @ORM\ManyToOne(targetEntity="Map")
      */
     private $map;
@@ -61,7 +61,7 @@ class MapCaseMap
     /**
      * @return caseMap
      */
-    public function getCaseMap(): caseMap
+    public function getCaseMap(): ?caseMap
     {
         return $this->caseMap;
     }
@@ -75,17 +75,17 @@ class MapCaseMap
     }
 
     /**
-     * @return map
+     * @return Map
      */
-    public function getMap(): map
+    public function getMap(): ?Map
     {
         return $this->map;
     }
 
     /**
-     * @param map $map
+     * @param Map $map
      */
-    public function setMap(map $map): void
+    public function setMap(Map $map): void
     {
         $this->map = $map;
     }

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom de la MAP</th>
+                <th>Id de la caseMap</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createMapCaseMap') }}">Créer</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set token = csrf_token('MAPCASEMAP_DELETE') %}
+            {% for mapCaseMap in mapCaseMaps %}
+                <tr>
+                    <td>{{ mapCaseMap.id }}</td>
+                    <td>{{ mapCaseMap.map.name }}</td>
+                    <td>{{ mapCaseMap.caseMap.id}}</td>
+                    <td>{{ mapCaseMap.lat}}</td>
+                    <td>{{ mapCaseMap.lng}}</td>
+                    <td><a class="btn btn-warning" href="{{ path('editMapCaseMap',{id:mapCaseMap.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteMapCaseMap',{id:mapCaseMap.id,token:token}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

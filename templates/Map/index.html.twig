@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th colspan="2" ><a class="btn btn-success btn-block" href="{{ path('createMap') }}">Créer</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set token = csrf_token('MAP_DELETE') %}
+            {% for map in maps %}
+                <tr>
+                    <td>{{ map.id }}</td>
+                    <td>{{ map.name}}</td>
+                    <td><a class="btn btn-warning" href="{{ path('editMap',{id:map.id}) }}">Modifier</a></td>
+                    <td><a class="btn btn-danger" href="{{ path('deleteMap',{id:map.id,token:token}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
