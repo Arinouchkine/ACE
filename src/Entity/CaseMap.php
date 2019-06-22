@@ -24,6 +24,12 @@ class CaseMap
      * @ORM\ManyToOne(targetEntity="CaseMapType", inversedBy="caseMaps")
      */
     private $caseMapType;
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $fieldset;
 
 
 
@@ -98,6 +104,22 @@ class CaseMap
     public function getCaseMapType()
     {
         return $this->caseMapType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFieldset(): int
+    {
+        return $this->fieldset;
+    }
+
+    /**
+     * @param int $fieldset
+     */
+    public function setFieldset(int $fieldset): void
+    {
+        $this->fieldset = $fieldset;
     }
 
 

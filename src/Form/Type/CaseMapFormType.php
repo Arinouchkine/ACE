@@ -14,6 +14,7 @@ use App\Entity\CaseMapType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class CaseMapFormType extends AbstractType
 {
@@ -30,7 +31,11 @@ class CaseMapFormType extends AbstractType
             "class"        => CaseMapType::class,
             'choice_label' => 'titre',
             'label'        => 'Selectionner le type pour la case',
-        ));
+        ))
+        ->add('fieldset',NumberType::class,array(
+            'label' => 'Numero de fieldset',
+        ))
+        ;
 
 
     }

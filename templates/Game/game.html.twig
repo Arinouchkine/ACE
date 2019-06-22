@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Démonstration du jeu ACE</h1>
+<div id="conteneur">
+    <canvas id="canvas" class="inline-block">Votre navigateur ne supporte pas HTML5, veuillez le mettre à jour pour jouer.
+
+    </canvas>
+    <div class="explication">
+        <h2>Bienvenu sur la démo du projet ACE</h2>
+        <p><strong>Les règles sont simples</strong></p><br  />
+        <p>Pour terminer la salle, il suffit d'afronter le monstre pour que la  porte vers la prochaine étape s'ouvre.
+    </div>
+    <div  id="quizz" class="none"></div>
+    <!--<div class="quizz none"></div>-->
+</div>
+{% endblock %}
