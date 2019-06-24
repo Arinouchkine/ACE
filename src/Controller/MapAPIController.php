@@ -44,18 +44,18 @@ class MapAPIController extends FOSRestBundle
     /**
      * @return JsonResponse
      *
-     * @Rest\Route("/test")
+     * @Rest\Route("/test2/{id}")
      */
-    public function getFieldsetAction()
+    public function getFieldsetAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+      /*  $em = $this->getDoctrine()->getManager();
 
-        $MapRepo = $em->getRepository(Map::class);
+        $MapRepo = $em->getRepository(Map::class);*/
+
 
         $formatted = [];
-
         $formatted[] = [
-            'id' => 'testId',
+            'id' => $id,
             'name' => 'testName',
             'address' => 'testAdress',
         ];
