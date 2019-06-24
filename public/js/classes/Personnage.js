@@ -36,6 +36,25 @@ function Personnage(url, x, y, direction) {
 	this.image.src = "sprites/" + url;
 }
 
+// Exécute un appel AJAX POST
+// Prend en paramètres l'URL cible, la donnée à envoyer et la fonction callback appelée en cas de succès
+function ajaxPost(url, data, callback) {
+    var req = new XMLHttpRequest();
+    req.open("POST", url);
+    req.addEventListener("load", function () {
+        if (req.status >= 200 && req.status < 400) {
+            // Appelle la fonction callback en lui passant la réponse de la requête
+            callback(req.responseText);
+        } else {
+            console.error(req.status + " " + req.statusText + " " + url);
+        }
+    });
+    req.addEventListener("error", function () {
+        console.error("Erreur réseau avec l'URL " + url);
+    });
+    req.send(data);
+}
+
 
 Personnage.prototype.dessinerPersonnage = function(context) {
 	var frame = 0; // Numéro de l'image à prendre pour l'animation
@@ -124,7 +143,33 @@ if(this.etatAnimation >= 0) {
 	
 	sleep(700).then(() => { if (etatAnimation == -1) {
 		if (prochaineCase.x === monstre.x && prochaineCase.y === monstre.y) {
-			quiz.classList.remove("none");	
+			//demande d'info des questions
+			var arrayID = new FormData();
+			arrayID.append("id", "2");
+			// Envoi de l'objet FormData au serveur
+			ajaxPost("/api/test2/2", arrayID,
+	    		function (reponse) {
+	        		// Affichage dans la console en cas de succès
+	        		console.log("Commande envoyée au serveur");
+	        		alert(reponse);
+	    		}
+			);
+
+			//avec battle
+			//demande d'info des questions
+			var arrayID = new FormData();
+			arrayID.append("id", "3");
+			// Envoi de l'objet FormData au serveur
+			ajaxPost("/api/battle/3", arrayID,
+	    		function (reponse) {
+	        		// Affichage dans la console en cas de succès
+	        		console.log("Commande envoyée au serveur");
+	        		alert(reponse);
+	    		}
+			);
+
+			quiz.classList.remove("none");
+
 			}else{
 				console.log("ERREUR 404");
 			}
