@@ -146,6 +146,7 @@ class QCM
     {
         if (!$this->choices->contains($choices)) {
             $this->choices->add($choices);
+            $choices->getQcm($this);
         }
     }
 

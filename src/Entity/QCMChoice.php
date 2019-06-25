@@ -67,7 +67,7 @@ class QCMChoice
     /**
      * @return QCM
      */
-    public function getQcm(): QCM
+    public function getQcm(): ?QCM
     {
         return $this->qcm;
     }

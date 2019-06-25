@@ -210,7 +210,7 @@ class MapAPIController extends FOSRestBundle
             'health'=>$battle->getHealth(),
         ];
 
-        if($gameover)
+        if($gameover || $win)
         {
             $this->em->remove($battle);
             $this->em->flush();

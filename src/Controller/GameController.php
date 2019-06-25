@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class GameController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="startgame")
      */
     public function connexion(AuthenticationUtils $utils){
 
