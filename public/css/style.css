@@ -19,10 +19,39 @@ canvas {
     background-color: red;
     top: 0;
     left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#choixUn, #choixDeux, #choixTrois{
+    display:    flex;   
+
+}
+
+
+#conteneur #win {
+    width: 960px;
+    height: 640px;
+    position: absolute;
+    background-color: purple;
+    top: 0;
+    left: 0;
+}
+
+#conteneur #loose {
+    width: 960px;
+    height: 640px;
+    position: absolute;
+    background-color: yellow;
+    top: 0;
+    left: 0;
 }
 
 .none{
-	display: none;
+	display: none !important;
 }
 
 .inline-block{

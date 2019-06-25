@@ -11,7 +11,34 @@
         <p><strong>Les règles sont simples</strong></p><br  />
         <p>Pour terminer la salle, il suffit d'afronter le monstre pour que la  porte vers la prochaine étape s'ouvre.
     </div>
-    <div  id="quizz" class="none"></div>
+    <div  id="quizz" class="none">
+    	<p id="question"></p>
+    	<div id="formulaire ">
+    		<div id="choixUn">
+    		
+    		</div>
+    		<div id="choixDeux">
+    		
+    		</div>
+    		<div id="choixTrois">
+    		
+    		</div>
+
+    		<div id="submitButton">
+    		
+    		</div>
+    	</div>
+
+    </div>
+
+    <div  id="win" class="none">
+    	<h1> Bien joué, vous avez fini, vous pouvez passer à la salle suivante</h1>
+    </div>
+
+    <div  id="loose" class="none">
+    	<a href="{{ path('startgame') }}"><h1> Try again</h1></a>
+
+    </div>
     <!--<div class="quizz none"></div>-->
 </div>
 {% endblock %}
