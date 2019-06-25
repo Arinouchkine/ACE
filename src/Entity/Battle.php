@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,18 @@ class Battle
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Health;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="QCM", inversedBy="battles")
+     */
+
+    private $qcms;
+
+    public function __construct()
+    {
+        $this->qcms = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -88,4 +101,36 @@ class Battle
 
         return $this;
     }
+
+    public function addQCM(QCM $qcm) : Battle
+    {
+        if ($this->qcms->contains($qcm))
+        {
+            return $this;
+        }
+        $this->qcms->add($qcm);
+        $qcm->addBattle($this);
+        return $this;
+    }
+
+    public function removeQCM(QCM $qcm) : Battle
+    {
+        if (! $this->qcms->contains($qcm))
+        {
+            return $this;
+        }
+        $this->qcms->removeElement($qcm);
+        $qcm->removeBattle($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQcms()
+    {
+        return $this->qcms;
+    }
+
+
 }

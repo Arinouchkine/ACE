@@ -90,6 +90,7 @@ class MapAPIController extends FOSRestBundle
         $repo = $this->em->getRepository(QCM::class);
 
         $battle = new Battle();
+        $exp = [];
 
         $battle->setQuestionE($monstre->getNbrEasyQuestion());
         $battle->setQuestionM($monstre->getNbrMediumQuestion());
@@ -101,24 +102,25 @@ class MapAPIController extends FOSRestBundle
         $win = false;
         if($battle->getQuestionE()>0)
         {
-            $question =  $this->getQuestion(1);
-            $nmb = $battle->getQuestionE() - 1;
+            $question =  $this->getQuestion(1, $battle);
+            $nmb = $battle->getQuestionE();
             $battle->setQuestionE($nmb);
             $this->em->persist($battle);
             $this->em->flush();
+
         }
         elseif ($battle->getQuestionM()>0)
         {
-            $question =  $this->getQuestion(2);
-            $nmb = $battle->getQuestionM() - 1;
+            $question =  $this->getQuestion(2, $battle);
+            $nmb = $battle->getQuestionM();
             $battle->setQuestionM($nmb);
             $this->em->persist($battle);
             $this->em->flush();
         }
         elseif($battle->getQuestionH()>0)
         {
-            $question =  $this->getQuestion(3);
-            $nmb = $battle->getQuestionH() - 1;
+            $question =  $this->getQuestion(3, $battle);
+            $nmb = $battle->getQuestionH();
             $battle->setQuestionH($nmb);
             $this->em->persist($battle);
             $this->em->flush();
@@ -126,6 +128,13 @@ class MapAPIController extends FOSRestBundle
         else
         {
             $win = true;
+            foreach($battle->getQcms() as $num => $qcm)
+            {
+                /**
+                 *  @var QCM $qcm
+                 */
+                $exp[$num] = $qcm->getExplication();
+            }
         }
         $formatted = [
             'id-battle'=>$battle->getId(),
@@ -149,6 +158,7 @@ class MapAPIController extends FOSRestBundle
         $question = null;
         $win = false;
         $gameover = false;
+        $exp = [];
         if($QCMChoice->isValidation())
         {
             $round = true;
@@ -160,6 +170,13 @@ class MapAPIController extends FOSRestBundle
             if ( $nh < 1)
             {
                 $gameover = true;
+                foreach($battle->getQcms() as $num => $qcm)
+                {
+                    /**
+                     *  @var QCM $qcm
+                     */
+                    $exp[$num] = $qcm->getExplication();
+                }
             }
             $battle->setHealth($nh);
             $this->em->persist($battle);
@@ -167,7 +184,7 @@ class MapAPIController extends FOSRestBundle
         }
         if($battle->getQuestionE()>0)
         {
-            $question =  $this->getQuestion(1);
+            $question =  $this->getQuestion(1, $battle);
             if($round)
             {
                 $nmb = $battle->getQuestionE() - 1;
@@ -179,7 +196,7 @@ class MapAPIController extends FOSRestBundle
         }
         elseif ($battle->getQuestionM()>0)
         {
-            $question =  $this->getQuestion(2);
+            $question =  $this->getQuestion(2, $battle);
             if($round) {
                 $nmb = $battle->getQuestionM() - 1;
                 $battle->setQuestionM($nmb);
@@ -189,7 +206,7 @@ class MapAPIController extends FOSRestBundle
         }
         elseif($battle->getQuestionH()>0)
         {
-            $question =  $this->getQuestion(3);
+            $question =  $this->getQuestion(3, $battle);
             if($round) {
                 $nmb = $battle->getQuestionH() - 1;
                 $battle->setQuestionH($nmb);
@@ -200,6 +217,14 @@ class MapAPIController extends FOSRestBundle
         else
         {
             $win = true;
+
+            foreach($battle->getQcms() as $num => $qcm)
+            {
+                /**
+                 *  @var QCM $qcm
+                 */
+                $exp[$num] = $qcm->getExplication();
+            }
         }
         $formatted = [
             'id-battle'=>$battle->getId(),
@@ -208,6 +233,7 @@ class MapAPIController extends FOSRestBundle
             'round' => $round,
             'gameover'=>$gameover,
             'health'=>$battle->getHealth(),
+            'exp' => $exp,
         ];
 
         if($gameover || $win)
@@ -220,11 +246,13 @@ class MapAPIController extends FOSRestBundle
     }
 
 
-    private function getQuestion($diff)
+    private function getQuestion($diff, Battle $battle)
     {
         $repo = $this->em->getRepository(QCM::class);
         $question = $repo->getOneQuestionByDifficulty($diff)[0];
-
+        $battle->addQCM($question);
+        $this->em->persist($battle);
+        $this->em->flush();
         /**
         * @var QCM $question
          */

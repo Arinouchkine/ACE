@@ -93,9 +93,16 @@ class QCM
      */
     private $theme;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Battle", inversedBy="qcms")
+     */
+
+    private $battles;
+
     public function __construct()
     {
         $this->choices =  new ArrayCollection();
+        $this->battles =  new ArrayCollection();
     }
 
 
@@ -186,6 +193,43 @@ class QCM
     public function setTheme(string $theme): void
     {
         $this->theme = $theme;
+    }
+
+    public function setHealth(?int $Health): self
+    {
+        $this->Health = $Health;
+
+        return $this;
+    }
+
+    public function addBattle(Battle $battle) : QCM
+    {
+        if ($this->battles->contains($battle))
+        {
+            return $this;
+        }
+        $this->battles->add($battle);
+        $battle->addQCM($this);
+        return $this;
+    }
+
+    public function removeBattle(Battle $battle) : QCM
+    {
+        if (! $this->battles->contains($battle))
+        {
+            return $this;
+        }
+        $this->battles->removeElement($battle);
+        $battle->removeQCM($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBattles()
+    {
+        return $this->battles;
     }
 
 
