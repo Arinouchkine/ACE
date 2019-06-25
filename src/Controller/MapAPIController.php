@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 /**
  * @Route("/api")
@@ -131,6 +132,89 @@ class MapAPIController extends FOSRestBundle
             'win' => $win,
             'question' => $question,
         ];
+
+        return new JsonResponse($formatted);
+    }
+    /**
+     * @return JsonResponse
+     *
+     * @Rest\Route("/battleNext/{id}/{id2}")
+     *
+     * @Entity("battle", expr="repository.find(id2)")
+     * @Entity("qcmchoice", expr="repository.find(id)")
+     */
+    public function getBattleNextAction(Battle $battle, QCMChoice $QCMChoice){
+
+
+        $question = null;
+        $win = false;
+        $gameover = false;
+        if($QCMChoice->isValidation())
+        {
+            $round = true;
+
+        }
+        else{
+            $round = false;
+            $nh = $battle->getHealth()-1;
+            if ( $nh < 1)
+            {
+                $gameover = true;
+            }
+            $battle->setHealth($nh);
+            $this->em->persist($battle);
+            $this->em->flush();
+        }
+        if($battle->getQuestionE()>0)
+        {
+            $question =  $this->getQuestion(1);
+            if($round)
+            {
+                $nmb = $battle->getQuestionE() - 1;
+                $battle->setQuestionE($nmb);
+                $this->em->persist($battle);
+                $this->em->flush();
+            }
+
+        }
+        elseif ($battle->getQuestionM()>0)
+        {
+            $question =  $this->getQuestion(2);
+            if($round) {
+                $nmb = $battle->getQuestionM() - 1;
+                $battle->setQuestionM($nmb);
+                $this->em->persist($battle);
+                $this->em->flush();
+            }
+        }
+        elseif($battle->getQuestionH()>0)
+        {
+            $question =  $this->getQuestion(3);
+            if($round) {
+                $nmb = $battle->getQuestionH() - 1;
+                $battle->setQuestionH($nmb);
+                $this->em->persist($battle);
+                $this->em->flush();
+            }
+        }
+        else
+        {
+            $win = true;
+        }
+        $formatted = [
+            'id-battle'=>$battle->getId(),
+            'win' => $win,
+            'question' => $question,
+            'round' => $round,
+            'gameover'=>$gameover,
+            'health'=>$battle->getHealth(),
+        ];
+
+        if($gameover)
+        {
+            $this->em->remove($battle);
+            $this->em->flush();
+        }
 
         return new JsonResponse($formatted);
     }
