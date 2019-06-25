@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class QCM
  * @package App\Entity
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\QCMRepository")
  *
  */
 
@@ -68,7 +68,7 @@ class QCM
     /**
      * @var integer
      *
-     * Le niveaux de dificulte de la question
+     *Le niveau de difficulté des questions
      *
      * @ORM\Column()
      * @Assert\NotNull()
@@ -134,7 +134,7 @@ class QCM
     /**
      * @return float
      */
-    public function getChoices(): QCMChoice
+    public function getChoices()
     {
         return $this->choices;
     }
