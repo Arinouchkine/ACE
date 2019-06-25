@@ -34,6 +34,7 @@ class QCMController extends AbstractController
     public function createFromQCMPrime(Request $request,QCMPrime $QCMPrime)
     {
         $token = $request->query->get('token');
+        $em = $this->getDoctrine()->getManager();
         $qcm = new QCM();
         foreach($QCMPrime->getChoices() as $choice)
         {
@@ -41,6 +42,8 @@ class QCMController extends AbstractController
             $qcmchoice->setAnswer($choice->getAnswer());
             $qcmchoice->setValidation($choice->isValidation());
             $qcm->addChoices($qcmchoice);
+            $qcmchoice->setQcm($qcm);
+            $em->persist($qcmchoice);
         }
         $qcm->setExplication($QCMPrime->getExplication());
         $qcm->setQuestion($QCMPrime->getQuestion());
@@ -48,7 +51,7 @@ class QCMController extends AbstractController
         $form = $this->createForm(QCMType::class, $qcm);
         $form->handleRequest($request);
         if ($form->isSubmitted()&&$form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($qcm);
             $em->flush();
 
