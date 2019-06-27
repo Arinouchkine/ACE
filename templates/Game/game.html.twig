@@ -6,11 +6,18 @@
     <canvas id="canvas" class="inline-block">Votre navigateur ne supporte pas HTML5, veuillez le mettre à jour pour jouer.
 
     </canvas>
+
     <div class="explication">
-        <h2>Bienvenu sur la démo du projet ACE</h2>
-        <p><strong>Les règles sont simples</strong></p><br  />
-        <p>Pour terminer la salle, il suffit d'afronter le monstre pour que la  porte vers la prochaine étape s'ouvre.
+        <h2>Bienvenue sur la démonstration du projet ACE</h2>
+        <p><strong><u>Les règles sont simples</u></strong></p>
+        <p>Pour terminer la salle, il suffit d'afronter le monstre.<br />
+        Le duel sera sous la forme d'un QCM sur un thème precis.<br />
+        Vous devez repondre correctement à <b>trois questions</b> pour progresser, mais atention! au bout de <b>deux erreurs</b> vous devrez tous recommencer</p>
+        <p><strong><u>Pour se déplacer</u></strong></p>
+        <p>Pour se déplacer il suffit d'utiliser les touches du clavier.</p>
+
     </div>
+
     <div  id="quizz" class="none">
     	<p id="question"></p>
     	<div id="formulaire ">
@@ -28,16 +35,27 @@
     		
     		</div>
     	</div>
-
     </div>
 
     <div  id="win" class="none">
-    	<h1> Bien joué, vous avez fini, vous pouvez passer à la salle suivante</h1>
+    	<p class="instruction"> Bien joué, vous avez fini, vous pouvez passer à la salle suivante</p>
+    	<ul>
+    	<div id="explication"></div>
+    	</ul>
     </div>
 
     <div  id="loose" class="none">
-    	<a href="{{ path('startgame') }}"><h1> Try again</h1></a>
+    	<a href="{{ path('startgame') }}"><p class="instruction">Try again</p></a>
+    	<ul>
+    	<div id="explicationLoose"></div>
+    	</ul>
+    </div>
 
+    <div id="start" class="block">
+    	<h2 class="titre">ACE</h2>
+    	<p class="theme"><u>Le HTML</u></p>
+    	<div id="startButton"></div>
+    	<p class="copy">ACE&copy;2019</p>
     </div>
     <!--<div class="quizz none"></div>-->
 </div>

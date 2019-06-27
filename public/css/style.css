@@ -7,16 +7,32 @@ canvas {
 	height: auto;
 	display: flex;
 	justify-content: center;
-	position: 	relative;	
+	position: 	relative;
+    margin: 10px;	
 
 
 }
 
 #conteneur #quizz {
-    width: 960px;
-    height: 640px;
+    width: 770px;
+    height: 546px;
     position: absolute;
-    background-color: red;
+    background-image:url( ../images/bg.PNG);
+    background-size: cover;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#start{
+    width: 770px;
+    height: 546px;
+    position: absolute;
+    background-image:url( ../images/bg.PNG);
+    background-size: cover;
     top: 0;
     left: 0;
     display: flex;
@@ -27,25 +43,28 @@ canvas {
 
 
 #choixUn, #choixDeux, #choixTrois{
-    display:    flex;   
+    display:    flex; 
+    margin: 15px 0;  
 
 }
 
 
 #conteneur #win {
-    width: 960px;
-    height: 640px;
+    width: 770px;
+    height: 546px;
     position: absolute;
-    background-color: purple;
+    background-image:url( ../images/bg.PNG);
+    background-size: cover;
     top: 0;
     left: 0;
 }
 
 #conteneur #loose {
-    width: 960px;
-    height: 640px;
+   width: 770px;
+    height: 546px;
     position: absolute;
-    background-color: yellow;
+    background-image:url( ../images/bg.PNG);
+    background-size: cover;
     top: 0;
     left: 0;
 }
@@ -57,4 +76,61 @@ canvas {
 .inline-block{
 	display: inline-block;
 
+}
+
+.container {
+    max-width: 100% !important;
+}
+
+h1 {
+    text-align: center;
+    margin: 3%;
+}
+
+.explication {
+    text-align: justify;
+    padding: 20px;
+}
+
+h2.titre {
+    font-size: 100px;
+}
+
+p.copy {
+    bottom: 0;
+    position: absolute;
+}
+
+p.question {
+    font-weight: bold;
+    font-size: 19px;
+}
+
+div#choixUn div, div#choixDeux div, div#choixTrois div {
+    line-height: 12px;
+    margin-left: 10px;
+}
+
+.instruction{
+    font-size: 20px;
+    text-decoration: underline;
+    font-weight: bold;
+    text-align: center;
+}
+
+li{
+    font-size: 15px;
+}
+
+* {
+    font-family: monospace;
+}
+
+.button1 {
+    border:none;
+    padding: 6px 16px 6px 16px;
+    border-radius:8px;
+    background:#d34836;
+    font:bold 13px Arial;
+    color:#fff;
 }

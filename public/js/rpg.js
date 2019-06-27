@@ -4,11 +4,11 @@ map.addPersonnage(new Personnage("exemple.png", 7, 0, DIRECTION.BAS));
 map.addPersonnage(new Personnage("exemple.png", 0, 7, DIRECTION.DROITE));
 map.addPersonnage(new Personnage("exemple.png", 14, 7, DIRECTION.GAUCHE));*/
 /*On cree un personnage qui s'apelle joueur et on l'ajoute au tableau personnage grace à addPersonnage*/
-var joueur = new Personnage("exemple.png", 6, 7, DIRECTION.HAUT);
+var joueur = new Personnage("exemple.png", 7, 10, DIRECTION.HAUT);
 map.addPersonnage(joueur);
 
 
-var monstre = new Monstre("monstre.png", 5, 7,  DIRECTION.BAS);
+var monstre = new Monstre("monstre.png", 14, 7,  DIRECTION.BAS);
 map.addMonstre(monstre);
 
 

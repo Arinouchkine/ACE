@@ -7,10 +7,25 @@ var DIRECTION = {
 var quiz = document.getElementById('quizz');
 var win = document.getElementById('win');
 var loose = document.getElementById('loose');
-MOOVE = true;
+MOOVE = false;
 var DUREE_ANIMATION = 4;
 var DUREE_DEPLACEMENT = 15;
 this.etatAnimation = -1;
+
+/*btn start*/
+let startButton = document.getElementById('startButton');
+let btnStart = document.createElement("BUTTON");                                       
+btnStart.innerHTML = "Start game";
+btnStart.setAttribute("class", "button1");                  
+btnStart.addEventListener("click", function() {
+				MOOVE = true;
+				start.classList.add("none");
+				start.classList.remove("block");
+
+
+				});
+startButton.appendChild(btnStart);
+
 
 const sleep = (milliseconds) => {
 	return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -191,8 +206,9 @@ Personnage.prototype.deplacer = function(direction, map) {
 
 				var valueID;
 
-				let btn = document.createElement("BUTTON");                                       
-				btn.innerHTML = "CLICK ME";                
+				let btn = document.createElement("BUTTON"); 
+				btn.setAttribute("class", "button1");                                      
+				btn.innerHTML = "Soumettre";                
 				btn.addEventListener("click", function() {
 					if(petitRondUn.checked){
 						valueId=valueQuestionUn;
@@ -210,6 +226,7 @@ Personnage.prototype.deplacer = function(direction, map) {
 						ajaxPost("/api/battleNext/"+valueId+"/"+reponse["id-battle"], arrayID,
 							function (reponse) {
 								remplacementQuestion(reponse);
+
 							}
 							);
 					});
@@ -251,6 +268,21 @@ Personnage.prototype.deplacer = function(direction, map) {
 				MOOVE = true;
 				quiz.classList.add("none");
 				win.classList.remove("none");
+				let explication = document.getElementById('explication');
+				let tableauExplicaton = reponse.exp;	
+				console.log(tableauExplicaton[2]);
+				console.log(reponse.win);
+				console.log(tableauExplicaton.length);
+
+				for(var i= 0; i < tableauExplicaton.length; i++)
+				{
+     			let enoncerExp = document.createElement('li');
+     			enoncerExp.innerHTML = tableauExplicaton[i];
+     			console.log(enoncerExp);
+     			explication.appendChild(enoncerExp);
+
+				}
+
 
 
 
@@ -258,8 +290,22 @@ Personnage.prototype.deplacer = function(direction, map) {
 				quiz.classList.add("none");
 				win.classList.add("none");
 				loose.classList.remove("none")
+				let explication = document.getElementById('explicationLoose');
+				let tableauExplicaton = reponse.exp;	
+				console.log(tableauExplicaton[2]);
+				console.log(reponse.win);
+				console.log(tableauExplicaton.length);
 
+				for(var i= 0; i < tableauExplicaton.length; i++)
+				{
+     			let enoncerExp = document.createElement('li');
+     			enoncerExp.innerHTML = tableauExplicaton[i];
+     			console.log(enoncerExp);
+     			explication.appendChild(enoncerExp);
+
+				}
 			}
+		
 			
 
 
@@ -324,8 +370,9 @@ Personnage.prototype.deplacer = function(direction, map) {
 
 					var valueID;
 
-					let btn = document.createElement("BUTTON");                                       
-					btn.innerHTML = "CLICK ME";                
+					let btn = document.createElement("BUTTON");
+					btn.setAttribute("class", "button1");                                          
+					btn.innerHTML = "Soumettre";                
 					btn.addEventListener("click", function() {
 						if(petitRondUn.checked){
 							valueId=valueQuestionUn;
